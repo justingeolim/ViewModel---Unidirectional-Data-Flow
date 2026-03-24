@@ -25,3 +25,7 @@ Requirements
 You must create:
 •	a CounterViewModel
 •	a CounterScreen composable
+
+## Preview 
+<img width="339" height="184" alt="Screenshot 2026-03-24 at 3 26 50 PM" src="https://github.com/user-attachments/assets/adee62fd-e274-43d8-8085-72f013a58de5" />
+
