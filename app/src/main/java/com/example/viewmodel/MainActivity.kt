@@ -13,6 +13,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.viewmodel.ui.theme.ViewModelTheme
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+// holds counter state and logic
+class CounterViewModel : ViewModel() {
+    var count by mutableIntStateOf(0)
+        private set
+
+    fun increment() {
+        count++
+    }
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,28 +40,35 @@ class MainActivity : ComponentActivity() {
         setContent {
             ViewModelTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    CounterScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 
+// reads state from ViewModel
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun CounterScreen(
+    modifier: Modifier = Modifier,
+    viewModel: CounterViewModel = viewModel()
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Count: ${viewModel.count}")
+        Button(onClick = { viewModel.increment() }) {
+            Text("Increment")
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun CounterScreenPreview() {
     ViewModelTheme {
-        Greeting("Android")
+        CounterScreen()
     }
 }
